@@ -1,15 +1,23 @@
 import express from "express";
+import estudiantesRouter from "./routes/estudiantes";
 
 const app = express();
+
 const PORT = 3000;
 
-app.get("/api/status", (req, res) => {
+app.use(express.json());
+
+// Endpoint de ayer
+app.get("/api/status", function (req, res) {
   res.json({
     status: "Servidor en línea",
     version: "1.0.0",
   });
 });
 
-app.listen(PORT, () => {
+// Router de estudiantes
+app.use("/api/estudiantes", estudiantesRouter);
+
+app.listen(PORT, function () {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
